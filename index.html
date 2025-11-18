@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Owner Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .case-study {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .case-study:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .case-study h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .case-study-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .impact {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .impact-title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .impact-list {
+            list-style: none;
+        }
+        
+        .impact-list li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .impact-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .tool-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: scale(1.05);
+            background: #e3f2fd;
+        }
+        
+        .tool-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 30px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .close-modal:hover {
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Name Here</h1>
+            <p class="tagline">Product Owner | B2B Integration Specialist | Gaming Industry Expert</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">B2B Integrations Delivered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">20%</div>
+                    <div class="stat-label">Faster Delivery Achieved</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">£XXM</div>
+                    <div class="stat-label">Revenue Enabled</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="section">
+            <h2>🎯 What I Do</h2>
+            <p style="font-size: 1.1em; line-height: 1.8;">
+                I specialize in scaling B2B API integrations for gaming and SaaS platforms. With a track record of delivering 50+ integrations, I bridge technical complexity and business value, ensuring products ship faster while maintaining compliance and quality standards.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Case Studies</h2>
+            
+            <div class="case-study" onclick="openModal('modal1')">
+                <h3>🎮 Case Study 1: Accelerating Gaming Platform Onboarding</h3>
+                <div class="case-study-meta">
+                    <div class="meta-item">🏢 Company: Push Gaming</div>
+                    <div class="meta-item">📅 Duration: 2022-2024</div>
+                    <div class="meta-item">👥 Team Size: Cross-functional (8 people)</div>
+                </div>
+                <p><strong>Challenge:</strong> Partner onboarding took 6-8 weeks, causing revenue delays and customer frustration.</p>
+                <div class="impact">
+                    <div class="impact-title">Business Impact:</div>
+                    <ul class="impact-list">
+                        <li>Reduced onboarding time from 6 weeks to 2 weeks</li>
+                        <li>Enabled £XXM in previously delayed revenue</li>
+                        <li>Improved partner satisfaction scores by XX%</li>
+                        <li>Scaled from 10 to 50+ active integrations</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 15px; color: #667eea; font-weight: bold;">Click to read full case study →</p>
+            </div>
+
+            <div class="case-study" onclick="openModal('modal2')">
+                <h3>📈 Case Study 2: Data-Driven Product Prioritization</h3>
+                <div class="case-study-meta">
+                    <div class="meta-item">🏢 Company: Push Gaming</div>
+                    <div class="meta-item">📅 Duration: 2023</div>
+                    <div class="meta-item">👥 Stakeholders: Commercial, Product, Engineering</div>
+                </div>
+                <p><strong>Challenge:</strong> Feature requests from multiple stakeholders creating roadmap conflicts and delivery bottlenecks.</p>
+                <div class="impact">
+                    <div class="impact-title">Business Impact:</div>
+                    <ul class="impact-list">
+                        <li>Implemented data-driven prioritization framework using Power BI</li>
+                        <li>Reduced stakeholder alignment time by 30%</li>
+                        <li>Increased team velocity by 20%</li>
+                        <li>Delivered XX high-impact features in 6 months</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 15px; color: #667eea; font-weight: bold;">Click to read full case study →</p>
+            </div>
+
+            <div class="case-study" onclick="openModal('modal3')">
+                <h3>🔧 Case Study 3: Building Compliance-Ready Integration Framework</h3>
+                <div class="case-study-meta">
+                    <div class="meta-item">🏢 Industry: Gaming/iGaming</div>
+                    <div class="meta-item">📅 Duration: 2023-2024</div>
+                    <div class="meta-item">🎯 Focus: Regulatory Compliance</div>
+                </div>
+                <p><strong>Challenge:</strong> Gaming operators required compliance certifications before integration, slowing partnerships.</p>
+                <div class="impact">
+                    <div class="impact-title">Business Impact:</div>
+                    <ul class="impact-list">
+                        <li>Created reusable compliance framework for MGA, UKGC standards</li>
+                        <li>Reduced compliance review time by 40%</li>
+                        <li>Zero compliance-related integration failures</li>
+                        <li>Framework adopted across XX jurisdictions</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 15px; color: #667eea; font-weight: bold;">Click to read full case study →</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Tools & Skills</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">📋</div>
+                    <strong>Jira</strong>
+                    <p style="font-size: 0.9em; color: #666;">Expert</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <strong>Power BI</strong>
+                    <p style="font-size: 0.9em; color: #666;">Advanced</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">💾</div>
+                    <strong>SQL</strong>
+                    <p style="font-size: 0.9em; color: #666;">Advanced</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📝</div>
+                    <strong>Confluence</strong>
+                    <p style="font-size: 0.9em; color: #666;">Expert</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🔄</div>
+                    <strong>Agile/Scrum</strong>
+                    <p style="font-size: 0.9em; color: #666;">Expert</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🔌</div>
+                    <strong>API Integration</strong>
+                    <p style="font-size: 0.9em; color: #666;">Expert</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📈</div>
+                    <strong>ClickUp</strong>
+                    <p style="font-size: 0.9em; color: #666;">Proficient</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">✅</div>
+                    <strong>TestRail</strong>
+                    <p style="font-size: 0.9em; color: #666;">Advanced</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 30px; color: #667eea;">Core Competencies</h3>
+            <div class="skills">
+                <span class="skill">B2B Integration Strategy</span>
+                <span class="skill">API Product Management</span>
+                <span class="skill">Stakeholder Alignment</span>
+                <span class="skill">Data-Driven Prioritization</span>
+                <span class="skill">Regulatory Compliance</span>
+                <span class="skill">Gaming Industry Expertise</span>
+                <span class="skill">Technical Documentation</span>
+                <span class="skill">Cross-functional Leadership</span>
+                <span class="skill">Backlog Optimization</span>
+                <span class="skill">Customer Journey Mapping</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💡 What Makes Me Different</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">🎮 Gaming Niche Expertise</h3>
+                    <p>Deep understanding of iGaming regulations, operator requirements, and compliance frameworks across multiple jurisdictions.</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">🔧 Technical Fluency</h3>
+                    <p>Not just a PM - I speak SQL, understand APIs, and can dive into technical documentation alongside engineers.</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">📊 Data-Driven Decisions</h3>
+                    <p>Build dashboards, analyze metrics, and use data to drive prioritization rather than opinions.</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">⚡ Proven Delivery</h3>
+                    <p>50+ integrations shipped. Not theoretical - actual results in production environments.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section cta-section">
+            <h2 style="border: none; padding: 0;">Let's Work Together</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;">Available for full-time roles, fractional PO work, and consulting projects.</p>
+            <a href="mailto:your.email@example.com" class="cta-button">📧 Get In Touch</a>
+            <a href="https://linkedin.com/in/yourprofile" class="cta-button" style="background: #0077b5;">💼 LinkedIn</a>
+            <a href="#" class="cta-button" style="background: #4caf50;">📄 Download CV</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Your Name. Built to showcase product ownership in action.</p>
+        </footer>
+    </div>
+
+    <!-- Modals for detailed case studies -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
+            <h2 style="color: #667eea;">Accelerating Gaming Platform Onboarding</h2>
+            
+            <h3 style="margin-top: 30px;">The Challenge</h3>
+            <p>When I joined Push Gaming as Product Owner for Integrations, partner onboarding was taking 6-8 weeks from contract signing to going live. This created:</p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>Revenue delays of £XXk per delayed integration</li>
+                <li>Frustrated partners threatening to choose competitors</li>
+                <li>Constant firefighting and manual intervention</li>
+                <li>Engineering team overwhelmed with support tickets</li>
+            </ul>
+
+            <h3 style="margin-top: 30px;">My Approach</h3>
+            <p><strong>1. Data Analysis First:</strong> I built Power BI dashboards tracking every integration phase, identifying bottlenecks in documentation and technical setup.</p>
+            <p><strong>2. Stakeholder Workshops:</strong> Ran sessions with commercial, technical, and operations teams to map the ideal onboarding journey.</p>
+            <p><strong>3. Self-Service Framework:</strong> Created standardized documentation, sandbox environments, and automated validation tools.</p>
+            <p><strong>4. Iterative Delivery:</strong> Shipped improvements in 2-week sprints, measuring impact after each release.</p>
+
+            <h3 style="margin-top: 30px;">The Results</h3>
+            <div class="impact">
+                <ul class="impact-list">
+                    <li><strong>67% reduction</strong> in onboarding time (6 weeks → 2 weeks)</li>
+                    <li><strong>£XXM revenue</strong> unlocked from faster go-lives</li>
+                    <li><strong>40% reduction</strong> in support tickets during onboarding</li>
+                    <li><strong>90+ NPS score</strong> from new partners</li>
+                    <li>Scaled from 10 to 50+ active integrations without adding headcount</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 30px;">Key Learnings</h3>
+            <p>The biggest win wasn't the technical improvements - it was aligning stakeholders on <em>why</em> speed mattered and getting buy-in for the investment in self-service tools.</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
+            <h2 style="color: #667eea;">Data-Driven Product Prioritization</h2>
+            
+            <h3 style="margin-top: 30px;">The Challenge</h3>
+            <p>Multiple stakeholders (Commercial, Operations, Engineering) were all pushing competing priorities. Roadmap planning meetings turned into hour-long debates with no clear decisions.</p>
+
+            <h3 style="margin-top: 30px;">My Solution</h3>
+            <p><strong>Created a Prioritization Framework:</strong></p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>Built Power BI dashboard showing: customer requests, revenue impact, implementation effort</li>
+                <li>Implemented RICE scoring (Reach, Impact, Confidence, Effort)</li>
+                <li>Weekly data review sessions replacing opinion-based debates</li>
+                <li>Transparent scoring visible to all stakeholders</li>
+            </ul>
+
+            <h3 style="margin-top: 30px;">The Impact</h3>
+            <div class="impact">
+                <ul class="impact-list">
+                    <li>Roadmap alignment meetings reduced from 2 hours to 30 minutes</li>
+                    <li>Team velocity increased 20% (less rework, clearer priorities)</li>
+                    <li>Stakeholder satisfaction scores improved by XX%</li>
+                    <li>Delivered XX high-impact features in 6 months vs XX the previous year</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
+            <h2 style="color: #667eea;">Building Compliance-Ready Integration Framework</h2>
+            
+            <h3 style="margin-top: 30px;">The Challenge</h3>
+            <p>Gaming operators required MGA, UKGC, and other regulatory compliance certifications before integration. Each jurisdiction had different requirements, causing 3-4 week delays per integration.</p>
+
+            <h3 style="margin-top: 30px;">My Approach</h3>
+            <p><strong>1. Compliance Mapping:</strong> Documented all regulatory requirements across XX jurisdictions</p>
+            <p><strong>2. Reusable Framework:</strong> Built standardized compliance checklist into integration process</p>
+            <p><strong>3. Automated Validation:</strong> Created automated tests for common compliance requirements</p>
+            <p><strong>4. Living Documentation:</strong> Maintained up-to-date compliance guides in Confluence</p>
+
+            <h3 style="margin-top: 30px;">The Results</h3>
+            <div class="impact">
+                <ul class="impact-list">
+                    <li><strong>40% faster</strong> compliance reviews</li>
+                    <li><strong>Zero compliance failures</strong> in production</li>
+                    <li>Framework now used across XX jurisdictions</li>
+                    <li>Reduced legal review time by XX hours per integration</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
